@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-const message = computed(() => {
-  return 'ようこそ <strong>' + myName.value + '</strong>さん！'
-})
-const myColor = 'red'
-const myName = ref('')
+import { ref } from 'vue'
+
+const todos = ref<string[]>([])
+const newTodo = ref<string>('')
+const addTodo = () => {
+  todos.value.push(newTodo.value)
+  newTodo.value = ''
+}
 </script>
 
 <template>
-  <div class="flex items-center justify-center min-h-screen">
-    <div class="flex flex-col items-center gap-4">
-      <div>
-        <p>お名前は？： <input v-model="myName" type="text" class="px-1 border" /></p>
-      </div>
-      <p v-html="message" :style="{ color: myColor, fontSize: '2rem' }"></p>
+  <div class="flex flex-col items-center justify-center gap-2 min-h-screen">
+    <div class="flex gap-2">
+      <input type="text" v-model="newTodo" class="border" size="30" />
+      <button @click="addTodo()" class="px-2 bg-gray-300 text-white">追加</button>
     </div>
+
+    <ul>
+      <li v-for="(todo, i) in todos" :key="i">{{ i }}. {{ todo }}</li>
+    </ul>
   </div>
 </template>
