@@ -21,7 +21,7 @@ const removeTodo = (i: number) => {
       <button @click="addTodo()" class="px-2 bg-gray-300 text-white">追加</button>
     </div>
 
-    <ul>
+    <ul v-if="todos.length > 0">
       <li v-for="(todo, i) in todos" :key="i" class="flex items-center gap-2">
         {{ todo }}
         <span @click="removeTodo(i)" class="cursor-pointer">
@@ -33,5 +33,7 @@ const removeTodo = (i: number) => {
         </span>
       </li>
     </ul>
+
+    <p v-else>Todoを追加してください</p>
   </div>
 </template>
